@@ -31,5 +31,6 @@ export const click = i => (dispatch, getState) => {
     board: updateBoard(game, i),
     turn: swap(game.turn),
   });
+  // AI's turn
 };
 
