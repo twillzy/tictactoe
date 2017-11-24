@@ -14,31 +14,21 @@ export default () => ({
 
   maxPlay(state) {
     const winner = isTerminal(state);
-    if (winner) {
-      return evaluate(winner, depth(state));
-    }
-    let value = Number.NEGATIVE_INFINITY;
+    if (winner) return evaluate(winner, depth(state));
     const allAvailableMoves = availableMoves(state);
-
-    for (let i = 0; i < allAvailableMoves.length; i++) {
-      const currentMove = allAvailableMoves[i];
-      value = Math.max(value, this.minPlay(nextState(state, currentMove)));
-    }
-    return value;
+    return allAvailableMoves.reduce(
+      (acc, move) => Math.max(acc, this.minPlay(nextState(state, move)))
+      , Number.NEGATIVE_INFINITY,
+    );
   },
 
   minPlay(state) {
     const winner = isTerminal(state);
-    if (winner) {
-      return evaluate(winner, depth(state));
-    }
-    let value = Number.POSITIVE_INFINITY;
+    if (winner) return evaluate(winner, depth(state));
     const allAvailableMoves = availableMoves(state);
-
-    for (let i = 0; i < allAvailableMoves.length; i++) {
-      const currentMove = allAvailableMoves[i];
-      value = Math.min(value, this.maxPlay(nextState(state, currentMove)));
-    }
-    return value;
+    return allAvailableMoves.reduce(
+      (acc, move) => Math.min(acc, this.maxPlay(nextState(state, move)))
+      , Number.POSITIVE_INFINITY,
+    );
   },
 });
