@@ -1,4 +1,4 @@
-import { isTerminal, winningCombinations, availableMoves, nextState } from './gameState';
+import { isTerminal, availableMoves, nextState } from './gameState';
 
 describe('gameState', () => {
   describe('isTerminal', () => {
@@ -12,7 +12,7 @@ describe('gameState', () => {
           'X', 'X', 'X',
         ],
       };
-      expect(isTerminal(state, winningCombinations)).toEqual('X');
+      expect(isTerminal(state)).toEqual('X');
     });
 
     it('should return null when there is no where to move', () => {
@@ -24,7 +24,7 @@ describe('gameState', () => {
         ],
       };
 
-      expect(isTerminal(state, winningCombinations)).toBeNull();
+      expect(isTerminal(state)).toBeNull();
     });
   });
 
