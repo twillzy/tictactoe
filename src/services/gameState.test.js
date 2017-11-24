@@ -1,30 +1,38 @@
-import { isTerminal, availableMoves, nextState } from './gameState';
+import { isTerminal, availableMoves, nextState, depth } from './gameState';
 
 describe('gameState', () => {
   describe('isTerminal', () => {
-    it('should return null when there all winning combinations have been scanned', () => {
-      expect(isTerminal({}, [])).toBeNull();
-    });
-
     it('should return winner when there is a winning combination', () => {
       const state = {
         board: [
-          'X', 'X', 'X',
+          'X', 'O', 'O',
+          'X', 'X', 'O',
+          'O', '', 'X',
         ],
       };
       expect(isTerminal(state)).toEqual('X');
     });
 
-    it('should return null when there is no where to move', () => {
+    it('should return true when game is a draw', () => {
       const state = {
         board: [
-          '1', '2', '3',
-          '4', '5', '6',
-          '7', '8', '9',
+          'X', 'O', 'X',
+          'X', 'X', 'O',
+          'O', 'X', 'O',
         ],
       };
+      expect(isTerminal(state)).toEqual(true);
+    });
 
-      expect(isTerminal(state)).toBeNull();
+    it('should return null when all winning combinations have been scanned', () => {
+      const state = {
+        board: [
+          'X', 'O', 'X',
+          'X', 'X', 'O',
+          '', '', '',
+        ],
+      };
+      expect(isTerminal(state, [])).toBeNull();
     });
   });
 
@@ -72,6 +80,19 @@ describe('gameState', () => {
         turn: 'O',
       };
       expect(nextState(state, move)).toEqual(expectedNextState);
+    });
+  });
+
+  describe('depth', () => {
+    it('should calculate the depth of the game state', () => {
+      const state = {
+        board: [
+          'X', 'X', '',
+          '', '', '',
+          '', '', '',
+        ],
+      };
+      expect(depth(state)).toEqual(1);
     });
   });
 });

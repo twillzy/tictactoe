@@ -1,13 +1,16 @@
 import AI from './AI';
 import { isTerminal, availableMoves, nextState } from './gameState';
+import evaluate from './evaluate';
 
 jest.mock('./gameState');
+jest.mock('./evaluate');
 
 describe('minimax', () => {
   describe('minPlay', () => {
     it('should return utility value when state is terminal', () => {
       const state = {};
       isTerminal.mockImplementation(() => true);
+      evaluate.mockImplementation(() => 10);
       expect(AI().minPlay(state)).toEqual(10);
     });
 

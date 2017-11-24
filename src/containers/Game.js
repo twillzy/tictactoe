@@ -10,7 +10,7 @@ const Game = ({ board, onClick }) => <Board board={board} onClick={onClick} />;
 const mapStateToProps = state => {
   const { board } = state.game;
   return {
-    board: board.toArray(),
+    board,
   };
 };
 

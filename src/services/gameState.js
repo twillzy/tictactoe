@@ -13,15 +13,17 @@ const foundWinner = ({ board }, [a, b, c]) =>
   board[a] && board[a] === board[b] && board[a] === board[c];
 
 export const isTerminal = (state, lines = winningCombinations) => {
+  if (lines.length === 0 && availableMoves(state).length === 0) return true;
   if (lines.length === 0) return null;
   if (foundWinner(state, lines[0])) return state.board[lines[0][0]];
   return isTerminal(state, lines.slice(1));
 };
 
-export const availableMoves = state =>
-  state.board.reduce((acc, cell, idx) => (cell === '' ? acc.concat(idx) : acc), []);
+export const availableMoves = state => state.board.reduce((acc, cell, idx) => (cell === '' ? acc.concat(idx) : acc), []);
 
 export const nextState = ({ board, turn }, move) => ({
   board: Object.assign([], board, { [move]: turn === 'X' ? 'X' : 'O' }),
   turn: turn === 'X' ? 'O' : 'X',
 });
+
+export const depth = ({ board }) => board.reduce((acc, c) => (c === '' ? acc : acc + 1), -1);
