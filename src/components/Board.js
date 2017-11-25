@@ -4,21 +4,17 @@ import Square from './Square';
 import { boardShape } from '../data/shapes';
 
 const Board = ({ board, onClick }) => {
-  const renderSquare = i => <Square value={board[i]} onClick={() => onClick(i)} />;
+  const renderSquare = i => <Square key={`cell-${i}`} value={board[i]} onClick={() => onClick(i)} />;
 
   const renderRow = i => (
-    <div className="board-row">
-      {renderSquare(i * 3)}
-      {renderSquare((i * 3) + 1)}
-      {renderSquare((i * 3) + 2)}
+    <div className="board-row" key={`row-${i}`}>
+      {[0, 1, 2].map(n => renderSquare((i * 3) + n))}
     </div>
   );
 
   return (
     <div>
-      {renderRow(0)}
-      {renderRow(1)}
-      {renderRow(2)}
+      {[0, 1, 2].map(n => renderRow(n))}
     </div>
   );
 };
