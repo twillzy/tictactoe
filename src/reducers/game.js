@@ -42,4 +42,3 @@ const aiToMove = (dispatch, getState) => {
     turn: swap(game.turn),
   });
 };
-
